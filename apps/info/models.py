@@ -1,3 +1,8 @@
 from django.db import models
 
-# Create your models here.
+
+class Info(models.Model):
+    name = models.CharField(max_length=127)
+    phone = models.CharField(max_length=21)
+    address = models.CharField(max_length=255, null=True, blank=True)
+    description = models.TextField()
