@@ -54,20 +54,26 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 'drf_yasg',
     'drf_spectacular',
+    "corsheaders",
 ] + MY_APPS + LIBS
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Elektron mebel api',
-    'DESCRIPTION': """
-        Agar siz Karimjon bo'lsangiz yaxshisi dasturdan chiqib keting(Alt+Fn+F4)
-        bu swagger Fluuter Uchun 
-    """,
+    'DESCRIPTION': "",
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
     # OTHER SETTINGS
 }
+CORS_ALLOWED_ORIGINS = [
+    "https://example.com",
+    "https://sub.example.com",
+    "http://localhost:8080",
+    "http://127.0.0.1:9000",
+]
+CORS_ALLOW_ALL_ORIGINS = True
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -106,14 +112,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-RENDER = config('RENDER', False, cast=bool)
-if RENDER:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
 # else:
 #     DATABASES = {
 #         'default': {
