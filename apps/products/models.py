@@ -16,6 +16,9 @@ class Product(models.Model):
         verbose_name = _("Mahslulot")
         verbose_name_plural = _("Mahsulotlar")
 
+    def __str__(self) -> str:
+        return self.name
+
 
 # class ProductImage(models.Model):
 #     product = models.ForeignKey(
