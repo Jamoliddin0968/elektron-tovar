@@ -38,7 +38,8 @@ MY_APPS = [
     "apps.categories",
     'apps.warehouses',
     'apps.sales',
-    'apps.info'
+    'apps.info',
+    'apps.customers'
 ]
 LIBS = [
     "rest_framework",
