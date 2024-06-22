@@ -1,22 +1,24 @@
+from apps.products.serializers import ProductSerializer
 from rest_framework import serializers
+
+from apps.customers.serializers import CustomerSerializer
+
 from .models import Sale, SaleItem
 
 
-class SaleItemSerializer(serializers.ModelSerializer):
+class SaleItemCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = SaleItem
         fields = "__all__"
 
 
-class SaleSerializer(serializers.ModelSerializer):
-    items = SaleItemSerializer(many=True, source="sale_items")
+class SaleCreateSerializer(serializers.ModelSerializer):
+    items = SaleItemCreateSerializer(many=True, source="sale_items")
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Sale
         fields = "__all__"
-        extra_kwargs = {
-            'user': {'read_only': True}
-        }
 
     def create(self, validated_data):
         items = validated_data.pop('items')
@@ -26,3 +28,20 @@ class SaleSerializer(serializers.ModelSerializer):
             new_sale_items.append(SaleItem(**item))
         SaleItem.objects.bulk_create(new_sale_items)
         return new_sale
+
+
+class SaleItemInfoSerializer(serializers.ModelSerializer):
+    product = ProductSerializer()
+
+    class Meta:
+        model = SaleItem
+        fields = "__all__"
+
+
+class SaleInfoSerializer(serializers.ModelSerializer):
+    customer = CustomerSerializer()
+    items = SaleItemInfoSerializer(many=True, source="sale_items")
+
+    class Meta:
+        model = Sale
+        fields = "__all__"

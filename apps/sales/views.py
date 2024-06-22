@@ -1,8 +1,9 @@
-from rest_framework import viewsets
-from .models import Sale
-from .serializers import SaleSerializer
 from drf_spectacular.utils import extend_schema, extend_schema_view
+from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
+from .models import Sale
+from .serializers import SaleCreateSerializer, SaleInfoSerializer
 
 
 @extend_schema_view(
@@ -15,10 +16,12 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 )
 class SaleViewSet(viewsets.ModelViewSet):
     queryset = Sale.objects.all()
-    serializer_class = SaleSerializer
+    serializer_class = SaleInfoSerializer
     permission_classes = [IsAuthenticatedOrReadOnly,]
 
-    http_method_names = ["get", "post", "delete"]
+    http_method_names = ["get", "post"]
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+    def get_serializer_class(self):
+        if self.request.method == 'POST':
+            return SaleCreateSerializer
+        return super().get_serializer_class()
