@@ -24,15 +24,6 @@ class WareHouseViewSet(viewsets.ModelViewSet):
 
     http_method_names = ["get",]
 
-    @extend_schema(tags=["Warehouse"],
-                   parameters=[
-        OpenApiParameter(
-            name='karimjon_id', description='Karimjon Id', type=OpenApiTypes.INT),
-    ]
-    )
-    def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
-
     @action(detail=False, methods=['get'], url_path='product/(?P<product_id>[^/.]+)')
     def get_by_product_id(self, request, product_id=None):
         try:

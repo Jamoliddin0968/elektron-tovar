@@ -2,3 +2,4 @@
 images
 media
 env
+db.sqlite3

@@ -85,7 +85,6 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'config.urls'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
@@ -116,21 +115,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': "django.db.backends.mysql",
+        'NAME': config("DB_NAME"),
+        'USER': config("DB_USER"),
+        'PASSWORD': config("DB_PASSWORD"),
+        'HOST': config("DB_HOST"),
+        'PORT': config("DB_PORT"),
     }
 }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': config('DB_ENGINE'),
-#             'NAME': config("DB_NAME"),
-#             'USER': config("DB_USER"),
-#             'PASSWORD': config("DB_PASSWORD"),
-#             'HOST': config("DB_HOST"),
-#             'PORT': config("DB_PORT"),
-#         }
-#     }
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -166,8 +158,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
+
+
 # dia Settings
 MEDIA_URL = '/media/'  # The URL to serve media files during development
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
