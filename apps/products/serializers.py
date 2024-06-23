@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 
-from apps.warehouses.models import WareHouse
+from apps.warehouses.models import WareHouseItem
 
 from .models import Product
 
@@ -13,7 +13,7 @@ class ProductSerializer(ModelSerializer):
 
     def create(self, validated_data):
         new_product = super().create(validated_data)
-        warehouse_product, _ = WareHouse.objects.get_or_create(
+        warehouse_product, _ = WareHouseItem.objects.get_or_create(
             product=new_product)
 
         return new_product

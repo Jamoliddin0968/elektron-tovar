@@ -5,7 +5,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .models import WareHouse
+from .models import WareHouseItem
 from .serializers import WareHouseSerializer
 
 
@@ -19,7 +19,7 @@ from .serializers import WareHouseSerializer
     get_by_product_id=extend_schema(tags=["Warehouse"]),
 )
 class WareHouseViewSet(viewsets.ModelViewSet):
-    queryset = WareHouse.objects.all()
+    queryset = WareHouseItem.objects.all()
     serializer_class = WareHouseSerializer
 
     http_method_names = ["get",]
@@ -27,8 +27,8 @@ class WareHouseViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'], url_path='product/(?P<product_id>[^/.]+)')
     def get_by_product_id(self, request, product_id=None):
         try:
-            warehouse = WareHouse.objects.get(product__id=product_id)
+            warehouse = WareHouseItem.objects.get(product__id=product_id)
             serializer = WareHouseSerializer(warehouse)
             return Response(serializer.data)
-        except WareHouse.DoesNotExist:
+        except WareHouseItem.DoesNotExist:
             return Response({'error': 'Warehouse entry not found for this product ID'}, status=404)

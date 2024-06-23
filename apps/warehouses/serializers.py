@@ -2,11 +2,11 @@ from rest_framework import serializers
 
 from apps.products.serializers import ProductSerializer
 
-from .models import WareHouse
+from .models import WareHouseItem
 
 
 class WareHouseSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = WareHouse
+        model = WareHouseItem
         fields = '__all__'
