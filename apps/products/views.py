@@ -4,6 +4,7 @@ from rest_framework import viewsets
 from .models import Product
 # from .models import Product, ProductImage
 from .serializers import ProductSerializer
+# from rest_framework.generics import Logging
 
 
 @extend_schema_view(
@@ -19,3 +20,6 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     serializer_class = ProductSerializer
     http_method_names = ['get', 'post', 'put', 'patch']
+
+    def get_queryset(self):
+        return super().get_queryset()

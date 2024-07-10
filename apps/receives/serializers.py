@@ -28,9 +28,6 @@ class ReceiveSerializer(serializers.ModelSerializer):
                 receive_item=new_receive_item,
                 product=new_receive_item.product,
                 price=new_receive_item.selling_price,
-                amount=new_receive_item.amount)
+                amount=new_receive_item.amount
+            )
         return receive
-# product = models.ForeignKey('products.Product', on_delete=models.CASCADE)
-#     amount = models.PositiveIntegerField(default=0)
-#     receive = models.ForeignKey(ReceiveItem, on_delete=models.CASCADE)
-#     price = models.DecimalField(max_digits=10, decimal_places=2)

@@ -1,9 +1,10 @@
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.response import Response
 
 from .models import Customer
-from .serializers import CustomerSerializer
+from .serializers import CustomerDetailSerializer, CustomerSerializer
 
 
 @extend_schema_view(
@@ -20,3 +21,8 @@ class CustomerViewSet(viewsets.ModelViewSet):
     serializer_class = CustomerSerializer
     http_method_names = ['post', 'get', 'patch']
     permission_classes = [IsAuthenticatedOrReadOnly,]
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = CustomerDetailSerializer(instance)
+        return Response(serializer.data)
