@@ -15,7 +15,7 @@ class CustomerSerializer(serializers.ModelSerializer):
 class SaleItemCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = SaleItem
-        fields = "__all__"
+        exclude = ('id','sale')
 
 
 class SaleCreateSerializer(serializers.ModelSerializer):
