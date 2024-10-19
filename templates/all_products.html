@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Eng ko'p sotilganlar{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex align-items-center mb-3">
+        <a href="{% url 'home' %}" class="me-2"><i class="bi bi-arrow-left"></i></a>
+        <h4>Eng ko'p sotilganlar</h4>
+    </div>
+    <div class="category-buttons">
+        <form action="" method="GET" class="mb-3">
+            <button
+                class="btn {% if selected_category == None or selected_category == 'all' %}btn-dark{% else %}btn-outline-dark{% endif %}"
+                type="submit" name="category" value="all">Barchasi</button>
+            {% for category in categories %}
+            <button
+                class="btn {% if selected_category == category.title %}btn-dark{% else %}btn-outline-dark{% endif %}"
+                type="submit" name="category" value="{{ category.title }}">{{ category.title }}</button>
+            {% endfor %}
+        </form>
+    </div>
+    <!-- Продукты -->
+    <div class="row">
+        {% for product in products %}
+        <div class="col-6 col-md-4 col-lg-3 mb-4">
+            <!-- По 2 карточки на мобильных, 3 на планшетах и 4 на больших экранах -->
+            <div class="card h-100"> <!-- h-100 делает карточки одинаковой высоты -->
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.title }}">
+                <div class="card-body">
+                    <h6 class="card-title">{{ product.title }}</h6>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>
+                            <i class="bi bi-star-fill"></i> {{ product.rating }} |
+                            <span>{{ product.sold }} sold</span>
+                        </span>
+                        <i class="bi bi-heart"></i>
+                    </div>
+                    <p class="product-price">${{ product.price }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No products available in this category.</p>
+        {% endfor %}
+    </div>
+
+
+</div>
+{% endblock %}

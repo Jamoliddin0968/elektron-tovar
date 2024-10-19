@@ -1,8 +1,10 @@
-from django.contrib.auth import views as auth_views
 from django.urls import path
 
-from apps.users.views import CustomLoginView
+from .views import LoginView, all_products, home, profile
 
 urlpatterns = [
-    path('login/', CustomLoginView.as_view(template_name='login.html'), name='login'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('', home, name='home'),
+    path('profile/', profile, name='my_profile'),
+    path('products/', all_products, name='all_products'),
 ]

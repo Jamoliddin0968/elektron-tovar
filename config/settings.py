@@ -40,7 +40,8 @@ MY_APPS = [
     'apps.sales',
     'apps.info',
     'apps.customers',
-    'apps.receives'
+    'apps.receives',
+    'apps.users'
 ]
 LIBS = [
     "rest_framework",
@@ -215,3 +216,5 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
+# Куда перенаправлять после успешного входа
+LOGIN_REDIRECT_URL = '/'

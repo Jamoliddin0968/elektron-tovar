@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Home{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        .profile-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .profile-section img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .category-icons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .category-icons div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-icons i {
+            font-size: 30px;
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .popular-section {
+            margin-top: 20px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: 350px;
+            /* Фиксированная высота карточки */
+            width: 100%;
+            /* Ширина карточки */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .product-card img {
+            max-height: 150px;
+            /* Максимальная высота изображения */
+            max-width: 100%;
+            /* Изображение заполняет ширину контейнера */
+            object-fit: cover;
+            /* Изображение заполняет контейнер, сохраняя пропорции */
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .product-card h6 {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .product-card .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #000;
+            margin-top: auto;
+        }
+
+
+        .bottom-navigation {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+
+        .bottom-navigation i {
+            font-size: 24px;
+        }
+
+        .bottom-navigation a {
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            font-size: 12px;
+        }
+
+        /* categpry boshlandi */
+        .category-buttons {
+            display: flex;
+            gap: 10px;
+            /* Space between buttons */
+            flex-wrap: nowrap;
+            /* Prevent wrapping */
+            overflow-x: auto;
+            /* Allow horizontal scrolling */
+            justify-content: flex-start;
+            /* Align buttons to the left */
+            padding: 10px 0;
+            /* Add some padding for better spacing */
+            scrollbar-width: none;
+            /* Hide scrollbar for Firefox */
+            -ms-overflow-style: none;
+            /* Hide scrollbar for Internet Explorer and Edge */
+        }
+
+        .category-buttons::-webkit-scrollbar {
+            display: none;
+            /* Hide scrollbar for Webkit-based browsers */
+        }
+
+        .category-buttons button {
+            flex: none;
+            /* Prevent buttons from stretching */
+            padding: 10px 20px;
+            /* Add padding to the button for a clean look */
+            border-radius: 30px;
+            /* Rounded corners */
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            /* Ensure text stays on one line */
+            border: 2px solid #000;
+            cursor: pointer;
+        }
+
+        .category-buttons .btn-dark {
+            background-color: #000;
+            color: #fff;
+            border-color: #000;
+        }
+
+        .category-buttons .btn-outline-dark {
+            background-color: #fff;
+            color: #000;
+            border-color: #000;
+        }
+
+        .category-buttons button:hover {
+            background-color: #f0f0f0;
+            /* Light background on hover */
+        }
+
+
+        /* category tugadi */
+        .card-img-top {
+            /* width: 100%; */
+            height: 50px;
+            /* Установим фиксированную высоту изображений */
+            object-fit: cover;
+            /* Изображение сохраняет пропорции */
+            border-radius: 8px;
+        }
+
+        .card {
+            height: 250px;
+            /* Уменьшили высоту карточек */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+
+        .col-6.col-md-4 {
+            flex: 1 1 33.33%;
+            /* Три карточки в строке */
+            max-width: 33.33%;
+            /* Устанавливаем ширину карточек 33.33% от родительского контейнера */
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- Profile Section или Header -->
+    <div class="profile-section">
+        <img src="profile.jpg" alt="Profile Picture">
+        <h5>Karimjon Developer</h5>
+        <p>🖐 Xayrli tong</p>
+    </div>
+
+    <!-- Контент страницы -->
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-navigation">
+        <a href="{% url 'home' %}"><i class="bi bi-house"></i><br>Bosh sahifa</a>
+        <a href="#"><i class="bi bi-bag"></i><br>Savatcha</a>
+        <a href="#"><i class="bi bi-cart"></i><br>Buyurtmalar</a>
+        <a href="#"><i class="bi bi-box-seam"></i><br>Ombor</a>
+        <a href="{% url 'my_profile' %}"><i class="bi bi-person"></i><br>Hisob</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

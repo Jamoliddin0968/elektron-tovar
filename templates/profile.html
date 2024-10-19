@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="profile-options mt-4">
+    <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="#"><i class="bi bi-person"></i> Hisobni tahrirlash</a>
+            <i class="bi bi-chevron-right"></i>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="#"><i class="bi bi-shield-lock"></i> Xavfsizlik</a>
+            <i class="bi bi-chevron-right"></i>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="#"><i class="bi bi-translate"></i> Ilova tili</a>
+            <span>O'zbek (lat)</span>
+            <i class="bi bi-chevron-right"></i>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="#"><i class="bi bi-moon"></i> Tungi rejim</a>
+            <input type="checkbox" class="form-check-input">
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="#"><i class="bi bi-file-lock"></i> Ommaviy oferta</a>
+            <i class="bi bi-chevron-right"></i>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="#"><i class="bi bi-info-circle"></i> Yordam markazi</a>
+            <i class="bi bi-chevron-right"></i>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center text-danger">
+            <a href="#"><i class="bi bi-box-arrow-left"></i> Chiqish</a>
+            <i class="bi bi-chevron-right"></i>
+        </li>
+    </ul>
+</div>
+{% endblock %}
