@@ -34,14 +34,15 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 MY_APPS = [
     "apps.products",
-    # "apps.users",
-    "apps.categories",
+
     'apps.warehouses',
     'apps.sales',
     'apps.info',
     'apps.customers',
     'apps.receives',
-    'apps.users'
+    'apps.users',
+
+    'apps.core'
 ]
 LIBS = [
     "rest_framework",
@@ -218,3 +219,8 @@ SIMPLE_JWT = {
 }
 # Куда перенаправлять после успешного входа
 LOGIN_REDIRECT_URL = '/'
+IMAGEKIT_PRIVATE_KEY = 'private_+J/dS61foPg7zgsl7ot4xKkmsdo='
+IMAGEKIT_PUBLIC_KEY = 'public_C35RwkPiHqwAmlvzRvwaAU08biA='
+IMAGEKIT_URL_ENDPOINT = 'https://ik.imagekit.io/rjt7sz5ns'
+
+DEFAULT_FILE_STORAGE = 'apps.core.storages.ImageKitStorage'  #

@@ -3,11 +3,9 @@ from django.db import models
 from apps.receives.models import ReceiveItem
 
 
-class WareHouseItem(models.Model):
-    product = models.ForeignKey('products.Product', on_delete=models.CASCADE)
-    amount = models.PositiveIntegerField(default=0)
-    receive_item = models.ForeignKey(ReceiveItem, on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+class Warehouse(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
 
-    def __str__(self) -> str:
-        return self.product.name
+    def __str__(self):
+        return self.name

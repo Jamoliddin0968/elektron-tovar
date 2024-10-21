@@ -1,12 +1,9 @@
 from rest_framework import serializers
 
-from apps.products.serializers import ProductSerializer
-
-from .models import WareHouseItem
+from .models import Warehouse
 
 
-class WareHouseSerializer(serializers.ModelSerializer):
-
+class WarehouseSerializer(serializers.ModelSerializer):
     class Meta:
-        model = WareHouseItem
-        fields = '__all__'
+        model = Warehouse
+        fields = ['id', 'name', 'description']
