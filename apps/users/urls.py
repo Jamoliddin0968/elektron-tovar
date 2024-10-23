@@ -1,5 +1,8 @@
+# urls.py
 from django.urls import path
 
-urlpatterns = [
+from .views import UserDetailView
 
+urlpatterns = [
+    path('users/me', UserDetailView.as_view(), name='user_detail'),
 ]
