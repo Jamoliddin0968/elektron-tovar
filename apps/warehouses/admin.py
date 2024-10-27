@@ -1,6 +1,6 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Warehouse
+from .models import Stock, Warehouse
 
-admin.site.register(Warehouse)
+admin.site.register((Warehouse, Stock))
