@@ -11,13 +11,9 @@ url = 'https://elektron-tovar.onrender.com'
 
 def send_request():
     try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            print("So'rov muvaffaqiyatli bajarildi")
-        else:
-            print(f"So'rov xatolik bilan yakunlandi: {response.status_code}")
-    except requests.exceptions.RequestException as e:
-        print(f"So'rov yuborishda xatolik yuz berdi: {e}")
+        requests.get(url)
+    except:
+        pass
 
 
 # Har 5 daqiqada so'rov yuborib turish
