@@ -13,8 +13,21 @@ class WarehouseSerializer(serializers.ModelSerializer):
 
 class StockSerializer(serializers.ModelSerializer):
     product = ProductSerializer()
-    # warehouse = WarehouseSerializer()
 
     class Meta:
         model = Stock
-        fields = ['id', 'product', 'warehouse', 'quantity']
+        fields = ['id', 'product', 'quantity']
+
+
+class StockCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Stock
+        fields = ['id', 'product', 'quantity']
+
+    def create(self, validated_data):
+        stock, _ = Stock.objects.get_or_create(
+            product=validated_data['product']
+        )
+        stock.quantity += validated_data['quantity']
+        stock.save()
+        return stock

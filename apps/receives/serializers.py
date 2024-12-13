@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from apps.warehouses.models import WareHouseItem
+from apps.products.models import Product
+from apps.warehouses.models import Stock, WareHouseItem
 
 from .models import Receive, ReceiveItem
 
