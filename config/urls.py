@@ -18,8 +18,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/v1/", include("apps.products.urls")),
     path("api/v1/info/", include("apps.info.urls")),
-    path('api/v1/', include('apps.customers.urls')),
-    # path('api/v1/', include('apps.warehouses.urls')),
+    # path('api/v1/', include('apps.customers.urls')),
+    path('api/v1/', include('apps.warehouses.urls')),
     # path('api/v1/', include('apps.sales.urls')),
     path('api/v1/', include('apps.users.urls')),
 ]+drf_yasg_urlpatterns+token_urlpatterns

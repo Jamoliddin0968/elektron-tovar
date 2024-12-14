@@ -19,15 +19,23 @@ class StockSerializer(serializers.ModelSerializer):
         fields = ['id', 'product', 'quantity']
 
 
-class StockCreateSerializer(serializers.ModelSerializer):
+class StockItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stock
         fields = ['id', 'product', 'quantity']
 
+
+class StockCreateSerializer(serializers.Serializer):
+    items = StockItemSerializer(many=True, write_only=True)
+    price = serializers.DecimalField(max_digits=10, decimal_places=2)
+
     def create(self, validated_data):
-        stock, _ = Stock.objects.get_or_create(
-            product=validated_data['product']
-        )
-        stock.quantity += validated_data['quantity']
-        stock.save()
-        return stock
+        for item in validated_data['items']:
+            stock, _ = Stock.objects.get_or_create(
+                product=item['product']
+            )
+            stock.quantity += validated_data['quantity']
+            stock.save()
+        return {
+            'price': validated_data['price']
+        }
