@@ -27,14 +27,14 @@ class StockItemSerializer(serializers.ModelSerializer):
 
 class StockCreateSerializer(serializers.Serializer):
     items = StockItemSerializer(many=True, write_only=True)
-    price = serializers.DecimalField(max_digits=10, decimal_places=2)
+    price = serializers.IntegerField()
 
     def create(self, validated_data):
         for item in validated_data['items']:
             stock, _ = Stock.objects.get_or_create(
                 product=item['product']
             )
-            stock.quantity += validated_data['quantity']
+            stock.quantity += item['quantity']
             stock.save()
         return {
             'price': validated_data['price']
