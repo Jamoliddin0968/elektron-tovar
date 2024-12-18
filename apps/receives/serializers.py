@@ -9,7 +9,7 @@ from .models import Receive, ReceiveItem
 class ReceiveItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReceiveItem
-        fields = "__all__"
+        exclude = ('receive',)
 
 
 class ReceiveSerializer(serializers.ModelSerializer):
