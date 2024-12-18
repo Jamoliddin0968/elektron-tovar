@@ -1,5 +1,6 @@
 import json
 
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 
 from .models import Category, Product
@@ -15,5 +16,5 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-    filter_backends = ['django_filters.rest_framework.DjangoFilterBackend']
+    filter_backends = [DjangoFilterBackend,]
     filterset_fields = ['category',]
