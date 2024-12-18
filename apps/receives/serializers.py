@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from apps.products.models import Product
+from apps.products.serializers import ProductSerializer
 from apps.warehouses.models import Stock
 
 from .models import Receive, ReceiveItem
@@ -33,3 +34,18 @@ class ReceiveSerializer(serializers.ModelSerializer):
             obj.quantity += new_receive_item.quantity
             obj.save()
         return receive
+
+
+class ReceiveItemListSerializer(serializers.ModelSerializer):
+    product = ProductSerializer()
+
+    class Meta:
+        model = ReceiveItem
+        exclude = ('receive',)
+
+
+class ReceiveListSerializer(serializers.ModelSerializer):
+    items = ReceiveItemListSerializer(many=True)
+
+    class Meta:
+        fields = "__all__"
