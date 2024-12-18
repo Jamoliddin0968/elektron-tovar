@@ -11,5 +11,5 @@ router.register(r'stocks', StockViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('receive/', ReceiveCreateApiView.as_view()),
+    # path('receive/', ReceiveCreateApiView.as_view()),
 ]
