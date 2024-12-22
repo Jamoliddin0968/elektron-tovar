@@ -48,7 +48,7 @@ class SaleItemInfoSerializer(serializers.ModelSerializer):
 
 
 class SaleInfoSerializer(serializers.ModelSerializer):
-    customer = CustomerSerializer()
+    # customer = CustomerSerializer()
     items = SaleItemInfoSerializer(many=True, source="sale_items")
 
     class Meta:
