@@ -1,10 +1,11 @@
+from django.db import transaction
 from rest_framework import serializers
 
 # from apps.customers.serializers import CustomerSerializer
 from apps.products.serializers import ProductSerializer
 
-from .models import Sale, SaleItem
 from ..customers.models import Customer
+from .models import Sale, SaleItem
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -12,14 +13,15 @@ class CustomerSerializer(serializers.ModelSerializer):
         model = Customer
         fields = '__all__'
 
+
 class SaleItemCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = SaleItem
-        exclude = ('id','sale')
+        exclude = ('id', 'sale')
 
 
 class SaleCreateSerializer(serializers.ModelSerializer):
-    items = SaleItemCreateSerializer(many=True, source="sale_items")
+    items = SaleItemCreateSerializer(many=True, write_only=True)
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
@@ -27,16 +29,14 @@ class SaleCreateSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def create(self, validated_data):
-        items = validated_data.pop('items')
-        new_sale = Sale.objects.create(**validated_data)
-        new_sale_items = []
-        for item in items:
-            new_sale_items.append(SaleItem(**item))
-        SaleItem.objects.bulk_create(new_sale_items)
-        if new_sale.credit > 0:
-            new_sale.customer.credit += new_sale.credit
-            new_sale.save()
-        return new_sale
+        with transaction.atomic():
+            items = validated_data.pop('items')
+            new_sale = Sale.objects.create(**validated_data)
+            new_sale_items = []
+            for item in items:
+                new_sale_items.append(SaleItem(**item, sale=new_sale))
+            SaleItem.objects.bulk_create(new_sale_items)
+            return new_sale
 
 
 class SaleItemInfoSerializer(serializers.ModelSerializer):
