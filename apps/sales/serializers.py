@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 # from apps.customers.serializers import CustomerSerializer
 from apps.products.serializers import ProductSerializer
+from apps.warehouses.models import Stock
 
 from ..customers.models import Customer
 from .models import Sale, SaleItem
@@ -34,7 +35,13 @@ class SaleCreateSerializer(serializers.ModelSerializer):
             new_sale = Sale.objects.create(**validated_data)
             new_sale_items = []
             for item in items:
-                new_sale_items.append(SaleItem(**item, sale=new_sale))
+                new_item = SaleItem(**item, sale=new_sale)
+                new_sale_items.append(new_item)
+                stock, _ = Stock.objects.get_or_create(
+                    product=new_item.product
+                )
+                stock.quantity -= new_item.amount
+                stock.save()
             SaleItem.objects.bulk_create(new_sale_items)
             return new_sale
 
