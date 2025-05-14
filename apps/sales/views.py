@@ -19,3 +19,11 @@ class SaleViewSet(viewsets.ModelViewSet):
         if self.request.method == 'POST':
             return SaleCreateSerializer
         return super().get_serializer_class()
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        serializer = SaleInfoSerializer(serializer.instance)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

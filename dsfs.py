@@ -1,6 +1,7 @@
-with open('requirements.txt', 'r') as f:
-    for line in f:
-        # Извлечение имени пакета до '=='
-        package = line.split('==')[0].strip()
-        if package and not package.startswith('#'):  # Игнорируем комментарии
-            print(package)
+from agents import Agent, Runner
+
+agent = Agent(name="Assistant", instructions="You are a helpful assistant")
+
+result = Runner.run_sync(
+    agent, "Write a haiku about recursion in programming.")
+print(result.final_output)
