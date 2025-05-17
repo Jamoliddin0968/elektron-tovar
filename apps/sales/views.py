@@ -27,4 +27,4 @@ class SaleViewSet(viewsets.ModelViewSet):
         self.perform_create(serializer)
         out_serializer = SaleInfoSerializer(serializer.instance)
         headers = self.get_success_headers(out_serializer.data)
-        return Response(out_serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(out_serializer.data, status=201, headers=headers)
